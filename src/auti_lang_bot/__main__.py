@@ -7,6 +7,7 @@ from loguru import logger
 from telethon import TelegramClient
 
 from . import handlers
+from . import models
 
 load_dotenv()
 
@@ -23,25 +24,25 @@ bot.add_argument("--token", default=os.getenv("BOT_TOKEN"))
 
 args = parser.parse_args()
 
-bot = TelegramClient("auti_lang_bot", args.app_id, args.app_hash)
+client = TelegramClient("auti_lang_bot", args.app_id, args.app_hash)
 
 
 async def main():
     try:
-        await bot.start(
+        await client.start(
             phone=args.phone,
             password=args.password,
             bot_token=args.token,
         )
-        await handlers.init(bot)
-        me = await bot.get_me()
+        await handlers.init(client)
+        me = await client.get_me()
         logger.info(me.stringify())
         logger.info("Bot initialized successfully")
     except Exception as e:
         logger.error(f"Error Initializing bot: {e}")
     try:
-        await bot.run_until_disconnected()
+        await client.run_until_disconnected()
     finally:
-        await bot.disconnect()
+        await client.disconnect()
 
 asyncio.run(main())

@@ -1,0 +1,21 @@
+[project]
+name = "auti_lang_bot"
+description = "Add your description here"
+version = "0.0.1"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "loguru>=0.7.3",
+    "python-dotenv>=1.1.0",
+    "telethon>=1.40.0",
+]
+
+[project.scripts]
+auti-lang-bot = "auti_lang_bot:__main__"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/auti_lang_bot"]
+
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
